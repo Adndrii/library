@@ -1,0 +1,54 @@
+.sidebar-collapsed {
+    width: 0;
+    overflow: hidden;
+    transition: width 0.3s;
+}
+.sidebar-expanded {
+    width: 200px; 
+    transition: width 0.3s;
+}
+.sidebar-container {
+    min-height: 100vh;
+    background: #343a40;
+    padding: 0;
+}
+.sidebar-container .nav-link {
+    color: #ffffff;
+}
+.main-content {
+    transition: margin-left 0.0s;
+}
+.main-content-expanded {
+    margin-left: 200px; 
+}
+.main-content-collapsed {
+    margin-left: 0;
+}
+.collapsed-navbar {
+    padding-left: 100px; 
+}
+.navbar-brand {
+    padding-left: 30px; 
+}
+.btn-custom {
+    background-color: #282727; 
+    border-color: #DCDADA;
+    color: #ffffff;
+    height:40px;
+    width: 100px;
+   
+    
+}
+.btn-custom:hover {
+    background-color: #AAA7A7; 
+    border-color: #AAA7A7;
+}
+.btn-group.btn-group-toggle {
+        width: 100%;
+    }
+    .btn-group.btn-group-toggle a {
+        flex: 1;
+        display: inline-block;
+        width: 50%; 
+    }
+    

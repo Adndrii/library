@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Books</title>
+<link rel="stylesheet"
+     href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
+     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+     crossorigin="anonymous">
+<link  href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+<!--NAVIGATION BAR  -->
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+<button id="toggle-button" class="btn">
+    <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+        <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    
+</button>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+        <a class="navbar-brand" th:href="@{/books}">Books</a>
+  
+  <div class="collapse navbar-collapse collapsed-navbar" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/books}">Book Management</a>
+      </li>
+    </ul>
+  </div>
+  
+   
+</nav>
+
+<!-- SIDEBAR -->
+<div class="d-flex">
+    <div id="sidebar-container" class="sidebar-collapsed sidebar-container">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" th:href="@{/books}" role="tab" aria-controls="v-pills-profile" aria-selected="false">Book Managment</a>
+        </div>
+    </div>
+
+
+<!-- MAIN CONTENT -->
+<div class ="container">
+	<div class = "row">
+	<h1>List Books</h1>
+	</div>
+	
+	
+	<table class = "table table-striped table-bordered">
+	
+	<thead class = "table-dark">
+		<tr>
+			<th>NAME</th>
+			<th>AUTHOR</th>			
+			<th>PUBLISHMENT</th>
+			<th> </th>
+		</tr>
+	</thead>
+		<tbody>
+			<tr th:each = "book: ${books}">
+				<td th:text = "${book.Name}"></td>
+				<td th:text = "${book.Author}"></td>
+				<td th:text = "${book.Publishment}"></td>
+				<td>
+				<div class="btn-group btn-group-toggle" data-toggle="buttons">
+					<a th:href="@{/books/edit/{id}(id=${book.id})}" class="btn btn-custom">
+                            <!-- SVG Icon for Edit -->
+                            <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+                                width="20" height="20" viewBox="0 0 512.000000 512.000000"
+                                preserveAspectRatio="xMidYMid meet">
+                                <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                                    fill="#ffffff" stroke="none">
+                                    <path d="M2581 3326 l-854 -854 -54 -304 c-76 -432 -74 -415 -53 -465 22 -51
+                                    61 -73 127 -73 26 1 196 27 376 59 l329 58 849 849 c475 475 852 859 856 873
+                                    5 20 -38 67 -338 367 -222 222 -351 344 -364 344 -13 0 -313 -293 -874 -854z
+                                    m1029 299 l145 -145 -730 -728 -730 -728 -168 -28 c-93 -16 -171 -26 -174 -22
+                                    -3 3 8 83 25 178 l31 172 723 723 c398 398 725 723 728 723 3 0 70 -65 150
+                                    -145z" />
+                                    <path d="M1345 1326 c-17 -7 -43 -27 -57 -44 -75 -89 -54 -217 43 -271 36 -21
+                                    45 -21 1231 -21 l1195 0 34 23 c18 12 44 38 57 57 20 30 23 45 20 100 -4 77
+                                    -29 120 -88 150 -38 20 -63 20 -1222 20 -961 -1 -1189 -3 -1213 -14z" />
+                                </g>
+                            </svg>
+                        </a>
+					<a th:href = "@{/books/delete/{id}(id=${book.id})}"
+                        class = "btn btn-custom"
+                        onclick="return confirmDelete();">
+                            <svg width="20" height="20" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
+                                <g transform="translate(0.000000,1200.000000) scale(0.100000,-0.100000)" fill="#ffffff" stroke="none">
+                                    <path d="M4815 11295 c-211 -39 -475 -195 -605 -359 -83 -103 -114 -168 -359 -754 l-243 -582 -1067 -2 -1066 -3 -45 -25 c-49 -28 -84 -73 -100 -129 -13 -48 -13 -505 1 -554 13 -49 63 -105 114 -128 36 -17 73 -19 387 -19 l348 0 3 -3302 3 -3303 21 -95 c40 -178 100 -337 170 -454 170 -283 388 -461 652 -535 l96 -26 2910 0 2910 0 96 26 c166 46 293 122 425 254 225 225 373 533 413 860 8 63 11 1051 11 3333 l0 3242 344 0 c236 0 354 4 377 12 54 18 87 48 114 102 25 49 25 53 25 305 0 145 -5 272 -10 293 -14 49 -52 93 -104 121 l-41 22 -1065 3 -1065 2 -139 333 c-402 959 -389 933 -525 1067 -130 129 -310 235 -479 283 l-77 22 -1180 2 c-931 1 -1195 -1 -1250 -12z m2333 -859 c15 -8 37 -25 48 -38 17 -18 334 -771 334 -792 0 -3 -673 -6 -1496 -6 -1193 0 -1495 3 -1491 13 121 296 323 767 335 781 10 10 31 27 47 37 29 18 76 19 1113 19 911 0 1087 -2 1110 -14z m1892 -4868 c0 -1940 -4 -3208 -10 -3263 -16 -150 -76 -299 -153 -380 l-44 -45 -2798 0 -2799 0 -42 45 c-43 47 -99 151 -130 245 -18 53 -19 171 -22 3313 l-2 3257 3000 0 3000 0 0 -3172z"/>
+                                    <path d="M4020 7434 c-19 -8 -50 -29 -68 -47 -66 -64 -62 70 -62 -2077 0 -2172 -5 -2016 69 -2083 61 -55 85 -59 388 -55 l271 3 43 30 c23 17 52 48 63 70 l21 40 0 1995 0 1995 -21 40 c-11 22 -40 54 -63 70 l-43 30 -281 2 c-236 2 -288 0 -317 -13z"/>
+                                    <path d="M5720 7428 c-26 -14 -57 -41 -75 -66 l-30 -44 0 -2008 0 -2008 30 -44 c18 -25 49 -52 75 -65 43 -22 54 -23 312 -23 220 0 275 3 306 15 47 20 79 50 103 97 18 36 19 91 19 2028 0 1937 -1 1992 -19 2028 -24 47 -56 77 -103 97 -31 12 -86 15 -306 15 -258 0 -269 -1 -312 -22z"/>
+                                    <path d="M7439 7430 c-48 -25 -96 -81 -108 -127 -15 -53 -15 -3933 0 -3986 13 -47 60 -102 110 -128 35 -17 61 -19 312 -19 267 0 275 1 318 23 29 16 54 40 74 72 l30 48 0 1997 0 1997 -30 48 c-20 32 -45 56 -74 72 -43 23 -50 23 -320 23 -252 -1 -279 -3 -312 -20z"/>
+                                </g>
+                            </svg>
+                        </a>
+				</div>
+				</td>
+				
+					
+			</tr>
+		</tbody>
+	
+	</table>
+	<div class="row">
+    <div class="col-lg-3">
+        <a th:href="@{/books/new}" class="btn btn-custom btn-sm mb-3">ADD BOOK</a>
+    </div>
+</div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-6yFLkww7vTWg5zHlZnMCAyspwm7YAZOUI9D7v6Wlm35bCIy3urB48OFjIWfaVbks" 
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function() {
+        // Toggle Sidebar
+        $('#toggle-button').click(function() {
+            $('#sidebar-container').toggleClass('sidebar-collapsed sidebar-expanded');
+            $('.main-content').toggleClass('main-content-collapsed main-content-expanded');
+        });
+        
+        // Collapse Sidebar on Link Click
+        $('#v-pills-tab .nav-link').click(function() {
+            $('#sidebar-container').addClass('sidebar-collapsed').removeClass('sidebar-expanded');
+            $('.main-content').addClass('main-content-collapsed').removeClass('main-content-expanded');
+        });
+    });
+</script>
+<script type="text/javascript">
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this book?");
+    }
+    
+</script>
+</body>
+</html>
