@@ -25,19 +25,25 @@ public class Book {
 	@Column(name = "publishment")
 	private String Publishment;
 	
+	@Column(name = "stock")
+	private boolean Stock;
+	
+	@Column(name = "price")
+	private Long Price;
 	public Book() {
 		
 	}
-
-
-	public Book(String name, String author, String publishment) {
+	
+	public Book(String name, String author, String publishment, boolean stock, Long price) {
 		super();
 		Name = name;
 		Author = author;
 		Publishment = publishment;
+		Stock = stock;
+		Price = price;
 	}
-	
-	
+
+
 	public Long getId() {
 		return id;
 	}
@@ -61,6 +67,20 @@ public class Book {
 	}
 	public void setPublishment(String publishment) {
 		Publishment = publishment;
+	}
+	public boolean getStock() {
+		return Stock;
+	}
+	public void setStock(boolean stock) {
+		Stock = stock;
+	}
+
+	public Long getPrice() {
+		return Price;
+	}
+
+	public void setPrice(Long price) {
+		Price = price;
 	}
 	
 

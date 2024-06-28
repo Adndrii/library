@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,6 +47,8 @@ public class BookController {
 		return "edit_book";
 	}
 	
+	
+	
 	@PostMapping("/books/{id}")
 	public String updateBook(@PathVariable Long id,
 			@ModelAttribute("book") Book book,
@@ -57,6 +60,8 @@ public class BookController {
 		existingBook.setName(book.getName());
 		existingBook.setAuthor(book.getAuthor());
 		existingBook.setPublishment(book.getPublishment());
+		existingBook.setStock(book.getStock());
+		existingBook.setPrice(book.getPrice());
 		
 		bookService.editBook(existingBook);
 		return "redirect:/books";
@@ -76,4 +81,16 @@ public class BookController {
 	        return "delete_book";
 	        //return "redirect:/books";
 	    }
+	 
+	 @GetMapping("/books/book/{id}")
+	 public String currentBook(@PathVariable Long id, Model model) {
+	     Book currentBook = bookService.getBookById(id);
+	     
+	   
+	         model.addAttribute("book", currentBook);
+	         return "current_book";
+	     
+	 }
+	 
+	 
 }

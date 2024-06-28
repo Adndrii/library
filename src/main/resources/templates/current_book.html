@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Books</title>
+<link rel="stylesheet"
+     href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
+     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+     crossorigin="anonymous">
+<link  href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+
+<!--NAVIGATION-->
+<div th:replace="fragments/navbar :: navbar"></div>
+<div th:replace="fragments/sidebar :: sidebar"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+     
+            <div style="margin-top: 30px" th:each="books : ${book}">
+                <div>
+                    <h1>
+                        <strong><span th:text="${book.Name}"></span></strong>
+                        
+                    </h1>
+                    <div class="float-right">
+                   
+                    <button class="btn btn-light" 
+                               th:classappend="${book.Stock ? (book.Price != null ? 'btn-custom' : 'btn-custom-disabled') : 'btn-custom-disabled'}"
+                                th:text="${book.Price!=null}? ${book.Price + ' грн'} : @{-}">
+                        </button>
+                    </div>
+                </div>
+                <h3 class="book-author">
+                    <span th:text="${book.Author}"></span>
+                </h3>
+                <div>
+                    <strong>Видавництво:</strong> <span th:text="${book.Publishment}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ 
+ 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-6yFLkww7vTWg5zHlZnMCAyspwm7YAZOUI9D7v6Wlm35bCIy3urB48OFjIWfaVbks" 
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function() {
+        // Toggle Sidebar
+        $('#toggle-button').click(function() {
+            $('#sidebar-container').toggleClass('sidebar-collapsed sidebar-expanded');
+            $('.main-content').toggleClass('main-content-collapsed main-content-expanded');
+        });
+        
+        // Collapse Sidebar on Link Click
+        $('#v-pills-tab .nav-link').click(function() {
+            $('#sidebar-container').addClass('sidebar-collapsed').removeClass('sidebar-expanded');
+            $('.main-content').addClass('main-content-collapsed').removeClass('main-content-expanded');
+        });
+    });
+</script>
+<script type="text/javascript">
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this book?");
+    }
+    
+</script>
+</body>
+</html>

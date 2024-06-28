@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+
 import com.example.demo.service.BookService;
 import com.example.demo.entity.Book;
 import com.example.demo.repository.BookRepository;
@@ -34,6 +35,8 @@ public class BookServiceImpl implements BookService{
 	public Book getBookById(Long id) {
 		return bookRepository.findById(id).get();
 	}
+	
+	
 	
 	public Book editBook(Book book) {
 		return bookRepository.save(book);
